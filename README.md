@@ -6,6 +6,7 @@ A VS Code extension that bridges your editor and [Claude Code](https://docs.anth
 
 - **Add files to context** — Right-click a file in the explorer or editor tab and select "Add to Claude Code". Sends `@path/to/file` to the Claude Code terminal. Supports multi-select.
 - **Send selections** — Select code in the editor, right-click, and choose "Send Selection to Claude Code". Sends `@path/to/file:startLine-endLine` so Claude knows exactly what you're pointing at.
+- **Multi-root workspace support** — Correctly resolves paths in multi-root workspaces. Files in the terminal's folder use relative paths; files in other folders use absolute paths.
 - **Auto-detect Claude Code terminals** — Automatically finds terminals named "Claude Code" or matching version patterns (e.g. `1.0.32`). Configurable with custom regex patterns.
 - **Manual terminal designation** — Use the command palette to manually designate any terminal as your Claude Code target.
 - **Status bar indicator** — Shows when a Claude Code terminal is active. Displays a selection icon when you have text selected, and clicking it sends the selection.
@@ -36,7 +37,7 @@ All commands are available via the command palette (`Cmd+Shift+P`):
 
 The extension types `@`-references into your Claude Code terminal input without pressing Enter, so you stay in control. For files it sends `@relative/path`, and for selections it sends `@relative/path:startLine-endLine`.
 
-Paths are automatically made relative to your workspace root.
+Paths are resolved relative to the Claude Code terminal's working directory. In multi-root workspaces, files in the terminal's folder get short relative paths while files in other workspace folders get absolute paths, so Claude Code always resolves the correct file.
 
 ## Development
 
