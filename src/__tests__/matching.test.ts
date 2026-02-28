@@ -86,6 +86,15 @@ describe('toRelativePath', () => {
     );
     expect(result).toBe('package.json');
   });
+
+  it('returns absolute path when file is in a different workspace folder', () => {
+    // Simulates: terminal CWD is repo-a, file is in repo-b
+    const result = toRelativePath(
+      '/projects/repo-b/src/utils.ts',
+      ['/projects/repo-a'],
+    );
+    expect(result).toBe('/projects/repo-b/src/utils.ts');
+  });
 });
 
 describe('formatLineRef', () => {

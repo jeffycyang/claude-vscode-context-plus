@@ -9,9 +9,7 @@ export class ContextSender {
     const terminal = this.requireTerminal();
     if (!terminal) return;
 
-    const workspacePaths = (vscode.workspace.workspaceFolders ?? []).map(
-      (f) => f.uri.fsPath,
-    );
+    const workspacePaths = this.getTerminalWorkspacePaths(terminal);
     const refs = uris
       .map((uri) => `@${toRelativePath(uri.fsPath, workspacePaths)}`)
       .join(' ');
@@ -30,9 +28,7 @@ export class ContextSender {
     }
 
     const sel = editor.selection;
-    const workspacePaths = (vscode.workspace.workspaceFolders ?? []).map(
-      (f) => f.uri.fsPath,
-    );
+    const workspacePaths = this.getTerminalWorkspacePaths(terminal);
     const filePath = toRelativePath(editor.document.uri.fsPath, workspacePaths);
     const startLine = sel.start.line + 1;
     const endLine = sel.end.line + 1;
@@ -40,6 +36,30 @@ export class ContextSender {
     const ref = formatLineRef(filePath, startLine, endLine);
     terminal.sendText(' ' + ref + ' ', false);
     terminal.show(false);
+  }
+
+  private getTerminalCwd(terminal: vscode.Terminal): string | undefined {
+    // Shell integration (VS Code 1.93+) — most accurate, tracks cd
+    const si = (terminal as any).shellIntegration;
+    if (si?.cwd) {
+      return si.cwd.fsPath ?? String(si.cwd);
+    }
+    // Creation options — initial CWD set when terminal was opened
+    const opts = terminal.creationOptions;
+    if ('cwd' in opts && opts.cwd) {
+      return typeof opts.cwd === 'string'
+        ? opts.cwd
+        : (opts.cwd as vscode.Uri).fsPath;
+    }
+    return undefined;
+  }
+
+  private getTerminalWorkspacePaths(terminal: vscode.Terminal): string[] {
+    const cwd = this.getTerminalCwd(terminal);
+    if (cwd) return [cwd];
+    // Fallback: first workspace folder only (most likely Claude Code's root)
+    const first = vscode.workspace.workspaceFolders?.[0];
+    return first ? [first.uri.fsPath] : [];
   }
 
   private requireTerminal(): vscode.Terminal | undefined {
