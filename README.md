@@ -39,7 +39,8 @@ The extension types `@`-references into your Claude Code terminal input without 
 
 Paths are resolved relative to the Claude Code terminal's working directory. In multi-root workspaces, files in the terminal's folder get short relative paths while files in other workspace folders get absolute paths, so Claude Code always resolves the correct file.
 
-## Development
+<details>
+<summary>Development</summary>
 
 ```bash
 npm install
@@ -50,12 +51,14 @@ npm test             # Run tests
 
 To test in VS Code, press `F5` to launch the Extension Development Host.
 
-## Building & Installing Locally
+### Building & Installing Locally
 
 ```bash
 npm run package      # Produces claude-code-context-plus-0.1.0.vsix
 code --install-extension claude-code-context-plus-0.1.0.vsix
 ```
+
+</details>
 
 ## License
 

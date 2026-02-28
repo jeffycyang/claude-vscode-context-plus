@@ -13,8 +13,21 @@
     "vscode": "^1.85.0"
   },
   "categories": [
+    "AI",
     "Other"
   ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "anthropic",
+    "ai",
+    "context"
+  ],
+  "icon": "resources/icon.png",
+  "galleryBanner": {
+    "color": "#D97706",
+    "theme": "dark"
+  },
   "activationEvents": [
     "onStartupFinished"
   ],
