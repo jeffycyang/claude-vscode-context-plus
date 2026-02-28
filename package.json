@@ -4,6 +4,11 @@
   "description": "Add files and selections to Claude Code terminal context via right-click menus and keyboard shortcuts",
   "version": "0.1.0",
   "publisher": "jeffy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeffycyang/claude-vscode-context-plus.git"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
   },
