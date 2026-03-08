@@ -2,10 +2,30 @@
 
 A VS Code extension that bridges your editor and [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI. Right-click files or selections to send them as `@`-references directly into your Claude Code terminal.
 
+Born out of switching from Cursor to Claude Code — this extension brings back some most-missed editor integrations: right-click to send files and selections as prompt context.
+
 ## Features
 
-- **Add files to context** — Right-click a file in the explorer or editor tab and select "Add to Claude Code". Sends `@path/to/file` to the Claude Code terminal. Supports multi-select.
-- **Send selections** — Select code in the editor, right-click, and choose "Send Selection to Claude Code". Sends `@path/to/file:startLine-endLine` so Claude knows exactly what you're pointing at.
+### Add files to context
+
+Right-click a file in the explorer or editor tab and select **"Add to Claude Code"**. Sends `@path/to/file` to the Claude Code terminal. Supports multi-select.
+
+![Add file to Claude Code context menu](resources/add-file-context-menu.png)
+
+### Send selections
+
+Select code in the editor, right-click, and choose **"Send Selection to Claude Code"**. Sends `@path/to/file:startLine-endLine` so Claude knows exactly what you're pointing at.
+
+![Send selection to Claude Code context menu](resources/send-selection-context-menu.png)
+
+### Result in terminal
+
+References are typed into the Claude Code terminal input without pressing Enter, so you stay in control.
+
+![Terminal showing @ reference](resources/terminal-reference.png)
+
+### More features
+
 - **Multi-root workspace support** — Correctly resolves paths in multi-root workspaces. Files in the terminal's folder use relative paths; files in other folders use absolute paths.
 - **Auto-detect Claude Code terminals** — Automatically finds terminals named "Claude Code" or matching version patterns (e.g. `1.0.32`). Configurable with custom regex patterns.
 - **Manual terminal designation** — Use the command palette to manually designate any terminal as your Claude Code target.
